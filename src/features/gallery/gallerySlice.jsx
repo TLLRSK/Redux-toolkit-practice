@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import axios from "axios";
 
-const baseUrl = "https://jsonplaceholder.typicode.com/albums/1/photos?_limit=20";
 
 const initialState = {
     galleryList: [],
@@ -12,7 +11,16 @@ export const getPhotos = createAsyncThunk(
     'gallery/getPhotos',
     async () => {
         try {
-            const response = await axios(baseUrl);
+            const response = await axios({
+                method: 'get',
+                url: "https://jsonplaceholder.typicode.com/albums/1/photos",
+                header: {
+                    'Content-Type': 'application/json',
+                },
+                params: {
+                    _limit: 10,
+                }
+            });
             const data = await response.data;
             return data;
         } catch (error) {
