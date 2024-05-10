@@ -1,9 +1,11 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { getPhotos } from "./features/gallery/gallerySlice";
+import Gallery from "./components/Gallery";
 
 function App() {
   const dispatch = useDispatch();
+  const {isLoading} = useSelector((store) => store.gallery);
 
   useEffect(() => {
     dispatch(getPhotos());
@@ -12,6 +14,7 @@ function App() {
   return (
     <main>
       <h1>IMAGES GALLERY</h1>
+      <Gallery/>
     </main>
   )
 }

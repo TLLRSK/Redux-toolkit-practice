@@ -1,10 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import axios from "axios";
 
-const baseUrl = "https://jsonplaceholder.typicode.com/albums/1/photos";
+const baseUrl = "https://jsonplaceholder.typicode.com/albums/1/photos?_limit=20";
 
 const initialState = {
-    imagesList: [],
+    galleryList: [],
     amount: 0,
     isLoading: true,
 }
@@ -14,7 +14,6 @@ export const getPhotos = createAsyncThunk(
         try {
             const response = await axios(baseUrl);
             const data = await response.data;
-            console.log(data)
             return data;
         } catch (error) {
             console.log(error.response)
@@ -25,19 +24,23 @@ export const getPhotos = createAsyncThunk(
 const gallerySlice = createSlice({
     name: 'gallery',
     initialState,
-
+    
     extraReducers: (builder) => {
         builder
-            .addCase(getPhotos.pending, () => {
-                console.log("pending")
+            .addCase(getPhotos.pending, (state) => {
+                state.isLoading = true;
             })
-            .addCase(getPhotos.fulfilled, () => {
-                console.log("fullfiled")
+            .addCase(getPhotos.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.galleryList = action.payload;
             })
-            .addCase(getPhotos.rejected, () => {
-                console.log("rejected")
+            .addCase(getPhotos.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.error.message;
             })
     }
 })
+
+export const { addPhotos } = gallerySlice.actions;
 
 export default gallerySlice.reducer;
