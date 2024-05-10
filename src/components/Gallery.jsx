@@ -1,6 +1,5 @@
 import { useSelector } from "react-redux";
 import GalleryItem from "./GalleryItem";
-import { nanoid } from "nanoid";
 
 const Gallery = () => {
     const {galleryList} = useSelector((store) => store.gallery)

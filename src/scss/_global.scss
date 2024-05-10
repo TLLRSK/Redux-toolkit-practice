@@ -1,0 +1,58 @@
+@import './variables';
+
+*, *::before, *::after {
+box-sizing: border-box;
+}
+* {
+margin: 0;
+}
+html {
+    font-size: 62.5%;
+}
+body {
+line-height: 1.5;
+-webkit-font-smoothing: antialiased;
+}
+img, picture, video, canvas, svg {
+display: block;
+max-width: 100%;
+}
+input, button, textarea, select {
+font: inherit;
+}
+p, h1, h2, h3, h4, h5, h6 {
+overflow-wrap: break-word;
+}
+#root, #__next {
+isolation: isolate;
+}
+ul {
+list-style: none;
+padding: 0;
+}
+/*
+SITE
+*/
+body {
+    min-height: 100dvh;
+}
+/*
+TYPO
+*/
+h4 {
+    font-size: 1.6rem;
+}
+/*
+GALLERY
+*/
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: $gap;
+
+    &-item {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: $gap;
+    }
+}
