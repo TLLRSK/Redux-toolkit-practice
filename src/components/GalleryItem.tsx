@@ -1,9 +1,10 @@
-import { useDispatch } from "react-redux";
+
+import { useDispatch } from "../../node_modules/react-redux/dist/react-redux";
 import { addItem } from "../features/cart/cartSlice";
 
-const GalleryItem = (item) => {
-    const {albumId, id, title, url, thumbnailUrl} = item;
-    const dispatch = useDispatch();
+const GalleryItem = (item: any) => {
+    const { title, thumbnailUrl} = item;
+    const dispatch: any = useDispatch();
     return (
         <li className="gallery-item">
             <img className="item-image" src={thumbnailUrl} alt={title}/>

@@ -39,8 +39,27 @@ body {
 /*
 TYPO
 */
-h4 {
+h4, .link {
     font-size: 1.6rem;
+}
+/*
+LINKS
+*/
+.link {
+    text-decoration: none;
+}
+/*
+NAV BAR
+*/
+.nav-bar {
+    display: flex;
+    justify-content: space-between;
+    padding: 1.6rem;
+}
+.nav-link {
+    display: flex;
+    gap: 1.6rem;
+    align-items: center;
 }
 /*
 GALLERY

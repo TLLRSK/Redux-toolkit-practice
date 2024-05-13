@@ -1,12 +1,10 @@
 import Gallery from "../components/Gallery";
-import Cart from "./Cart";
 
-const Home = () => {
+const Home: any = () => {
 return (
     <section className="home">
         <h1>IMAGES GALLERY</h1>
         <Gallery />
-        <Cart/>
     </section>
 )   
 }
