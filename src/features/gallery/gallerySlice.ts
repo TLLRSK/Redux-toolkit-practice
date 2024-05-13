@@ -18,7 +18,7 @@ export const getPhotos: any = createAsyncThunk(
                     'Content-Type': 'application/json',
                 },
                 params: {
-                    _limit: 10,
+                    _limit: 2,
                 }
             });
             const data: any = await response.data;
