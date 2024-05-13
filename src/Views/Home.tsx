@@ -1,10 +1,9 @@
-import Gallery from "../components/Gallery";
+import Shop from "../components/Shop";
 
 const Home: any = () => {
 return (
     <section className="home">
-        <h1>IMAGES GALLERY</h1>
-        <Gallery />
+        <Shop/>
     </section>
 )   
 }

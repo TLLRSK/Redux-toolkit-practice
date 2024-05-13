@@ -1,4 +1,5 @@
 @import './variables';
+@import './mixins';
 
 *, *::before, *::after {
 box-sizing: border-box;
@@ -62,16 +63,30 @@ NAV BAR
     align-items: center;
 }
 /*
-GALLERY
+SHOP
 */
-.gallery {
+.shop {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: auto;
     gap: $gap;
-
-    &-item {
-        display: grid;
-        grid-template-columns: auto 1fr;
-        gap: $gap;
+    @include mq-720 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    @include mq-1024 {
+        grid-template-columns: repeat(3, 1fr);
     }
 }
+.item {
+    padding: $padding;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $gap*2;
+    @include mq-720 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    &-image {
+        max-width: clamp(16rem, 4vw, 24rem);
+        height: auto;
+    }
+}
+

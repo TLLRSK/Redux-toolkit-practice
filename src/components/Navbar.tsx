@@ -14,7 +14,7 @@ const Navbar = () => {
 
     return (
         <nav className="nav-bar">
-            <Link to="/" className="link nav-link">Home</Link>
+            <Link to="/" className="link nav-link"><h1>Fake shop</h1></Link>
             <Link to="/cart" className="link nav-link">
                 <IoMdCart />
                 <span className="cart-amount">{amount}</span>

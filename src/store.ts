@@ -1,16 +1,16 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import galleryReducer from './features/gallery/gallerySlice'
+import shopReducer from './features/shop/shopSlice'
 import cartReducer from './features/cart/cartSlice'
 
 export interface storeState {
-  gallery: galleryReducer,
+  shop: shopReducer,
   cart: cartReducer,
 }
 /*
   Combining reducers: https://es.redux.js.org/docs/api/combine-reducers.html
 */
 const rootReducer = combineReducers<storeState>({
-  gallery: galleryReducer,
+  shop: shopReducer,
   cart: cartReducer,
 })
 

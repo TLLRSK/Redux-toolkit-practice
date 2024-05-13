@@ -3,23 +3,20 @@ import axios from "axios";
 
 
 const initialState: any = {
-    galleryList: [],
+    shopList: [],
     amount: 0,
     isLoading: true,
 }
-export const getPhotos: any = createAsyncThunk(
-    'gallery/getPhotos',
+export const getProducts: any = createAsyncThunk(
+    'shop/getProducts',
     async () => {
         try {
             const response: any = await axios({
                 method: 'get',
-                url: "https://jsonplaceholder.typicode.com/albums/1/photos",
+                url: "https://fakestoreapi.com/products",
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                params: {
-                    _limit: 2,
-                }
             });
             const data: any = await response.data;
             return data;
@@ -29,26 +26,25 @@ export const getPhotos: any = createAsyncThunk(
     }
 )
 
-const gallerySlice: any = createSlice({
-    name: 'gallery',
+const shopSlice: any = createSlice({
+    name: 'shop',
     initialState,
     reducers: {},
     extraReducers: (builder: any) => {
         builder
-            .addCase(getPhotos.pending, (state: any) => {
+            .addCase(getProducts.pending, (state: any) => {
                 state.isLoading = true;
             })
-            .addCase(getPhotos.fulfilled, (state: any, action: any) => {
+            .addCase(getProducts.fulfilled, (state: any, action: any) => {
                 state.isLoading = false;
-                state.galleryList = action.payload;
+                state.shopList = action.payload;
+                console.log("shop list: ", state.shopList);
             })
-            .addCase(getPhotos.rejected, (state: any, action: any) => {
+            .addCase(getProducts.rejected, (state: any, action: any) => {
                 state.isLoading = false;
                 state.error = action.error.message;
             })
     }
 })
 
-export const { addPhotos } = gallerySlice.actions;
-
-export default gallerySlice.reducer;
+export default shopSlice.reducer;

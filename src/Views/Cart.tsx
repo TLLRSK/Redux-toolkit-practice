@@ -9,11 +9,11 @@ const Cart: any = () => {
         <section className="cart">
             <ul className="cartList">
                 {cartItems.map((item: any) => {
-                    const {id, title, thumbnailUrl} = item;
+                    const {id, title, image} = item;
                     console.log(id)
                     return (
                         <li key={item.id}>
-                            <img className="item-image" src={thumbnailUrl} alt={title} />
+                            <img className="item-image" src={image} alt={title} />
                             <h4 className="item-title">{title}</h4>
                             <button className="remove-btn" onClick={() => dispatch(removeItem(id))}>Remove</button>
                         </li>
