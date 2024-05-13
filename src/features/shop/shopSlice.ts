@@ -38,7 +38,6 @@ const shopSlice: any = createSlice({
             .addCase(getProducts.fulfilled, (state: any, action: any) => {
                 state.isLoading = false;
                 state.shopList = action.payload;
-                console.log("shop list: ", state.shopList);
             })
             .addCase(getProducts.rejected, (state: any, action: any) => {
                 state.isLoading = false;
