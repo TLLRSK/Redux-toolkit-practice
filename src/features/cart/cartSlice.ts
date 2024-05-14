@@ -1,42 +1,64 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { Product, cartState } from "../../interfaces/interfaces";
 
-const initialState: any = {
-    cartItems: [],
-    amount: 0,
-    total: 0,
-    isLoading: false,
-}
+// Estado inicial del carrito
+const initialState: cartState = {
+  cartItems: [],
+  amount: 0,
+  total: 0,
+  isLoading: false,
+};
 
-const cartSlice: any = createSlice({
-    name: 'cart',
-    initialState,
-    reducers: {
-        clearCart: (state: any) => {
-            state.cartItems = []
-        },
-        addItem: (state: any, action: any) => {
-            state.cartItems.push(action.payload);
-        },
-        removeItem: (state: any, action: any) => {
-            const itemId: any = action.payload;
-            state.cartItems = state.cartItems.filter((item: any) => item.id !== itemId)
-        },
-        setAmount: (state) => {
-            state.amount = state.cartItems.length;
-        },
-        calculateTotal: (state) => {
-            let amount = 0;
-            let total = 0;
-            state.cartItems.forEach((item: any) => {
-                amount++
-                total += item.price;
-            })
-            state.amount = amount;
-            state.total = total.toFixed(2);
-        }
-    }
-})
+const cartSlice = createSlice({
+  name: 'cart',
+  initialState,
+  reducers: {
+    clearCart: (state) => {
+      state.cartItems = [];
+    },
+    addProduct: (state, action: PayloadAction<Product>) => {
+      const newItem = {...action.payload, amount: 1};
+      const existingItem = state.cartItems.find((item) => item.id === newItem.id);
+      existingItem
+        ? existingItem.amount++
+        : state.cartItems.push(newItem);
+    },
+    removeItem: (state, action: PayloadAction<number>) => {
+      const itemId = action.payload;
+      state.cartItems = state.cartItems.filter((item) => item.id !== itemId);
+    },
+    setAmount: (state) => {
+      let amount = 0;
+      state.cartItems.forEach((item) => {
+        amount += item.amount;
+      })
+      state.amount = amount;
+    },
+    decreaseAmount: (state, action: PayloadAction<number>) => {
+      const itemId = action.payload;
+      const existingItem = state.cartItems.find((item) => item.id === itemId);
+      existingItem.amount > 1
+        ? existingItem.amount--
+        : state.cartItems = state.cartItems.filter((item) => item.id !== itemId);
+    },
+    increaseAmount: (state, action: PayloadAction<number>) => {
+      const itemId = action.payload;
+      const existingItem = state.cartItems.find((item) => item.id === itemId);
+      existingItem.amount++;
+    },
+    calculateTotal: (state) => {
+      let amount = 0;
+      let total = 0;
+      state.cartItems.forEach((item) => {
+        amount += item.amount;
+        total += item.price;
+      });
+      state.amount = amount;
+      state.total = Number(total.toFixed(2));
+    },
+  },
+});
 
-export const {clearCart, addItem, removeItem, setAmount, calculateTotal} = cartSlice.actions;
+export const { clearCart, addProduct, removeItem, setAmount, decreaseAmount, increaseAmount, calculateTotal } = cartSlice.actions;
 
 export default cartSlice.reducer;

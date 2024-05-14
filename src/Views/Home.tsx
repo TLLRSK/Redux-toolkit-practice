@@ -1,6 +1,6 @@
 import Shop from "../components/Shop";
 
-const Home: any = () => {
+const Home = () => {
 return (
     <section className="home">
         <Shop/>

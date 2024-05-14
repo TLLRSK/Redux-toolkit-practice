@@ -1,17 +1,18 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import axios from "axios";
+import { Product, shopState } from "../../interfaces/interfaces";
 
 
-const initialState: any = {
+const initialState: shopState= {
     shopList: [],
     amount: 0,
     isLoading: true,
 }
-export const getProducts: any = createAsyncThunk(
+export const getProducts = createAsyncThunk<Product[]>(
     'shop/getProducts',
     async () => {
         try {
-            const response: any = await axios({
+            const response = await axios<Product[]>({
                 method: 'get',
                 url: "https://fakestoreapi.com/products",
                 headers: {
@@ -35,7 +36,7 @@ const shopSlice: any = createSlice({
             .addCase(getProducts.pending, (state: any) => {
                 state.isLoading = true;
             })
-            .addCase(getProducts.fulfilled, (state: any, action: any) => {
+            .addCase(getProducts.fulfilled, (state: any, action: PayloadAction<Product[]>) => {
                 state.isLoading = false;
                 state.shopList = action.payload;
             })
