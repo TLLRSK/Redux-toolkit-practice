@@ -9,6 +9,10 @@ const initialState: cartState = {
   isLoading: false,
 };
 
+const findItemById = (cartItems: Product[], id: number) => {
+  return cartItems.find((item) => item.id === id);
+}
+
 const cartSlice = createSlice({
   name: 'cart',
   initialState,
@@ -17,11 +21,12 @@ const cartSlice = createSlice({
       state.cartItems = [];
     },
     addProduct: (state, action: PayloadAction<Product>) => {
-      const newItem = {...action.payload, amount: 1};
-      const existingItem = state.cartItems.find((item) => item.id === newItem.id);
-      existingItem
+      const newItem = { ...action.payload, amount: 1 };
+      const existingItem = findItemById(state.cartItems, newItem.id);
+      existingItem && existingItem.amount
         ? existingItem.amount++
         : state.cartItems.push(newItem);
+      
     },
     removeItem: (state, action: PayloadAction<number>) => {
       const itemId = action.payload;
@@ -30,28 +35,33 @@ const cartSlice = createSlice({
     setAmount: (state) => {
       let amount = 0;
       state.cartItems.forEach((item) => {
-        amount += item.amount;
+        if (item.amount) {
+          amount += item.amount;
+        }
       })
       state.amount = amount;
     },
     decreaseAmount: (state, action: PayloadAction<number>) => {
       const itemId = action.payload;
-      const existingItem = state.cartItems.find((item) => item.id === itemId);
-      existingItem.amount > 1
+      const existingItem = findItemById(state.cartItems, itemId);;
+      existingItem && existingItem.amount
         ? existingItem.amount--
         : state.cartItems = state.cartItems.filter((item) => item.id !== itemId);
     },
     increaseAmount: (state, action: PayloadAction<number>) => {
       const itemId = action.payload;
-      const existingItem = state.cartItems.find((item) => item.id === itemId);
-      existingItem.amount++;
+      const existingItem = findItemById(state.cartItems, itemId);;
+      existingItem && existingItem.amount && existingItem.amount++;
+      
     },
     calculateTotal: (state) => {
       let amount = 0;
       let total = 0;
       state.cartItems.forEach((item) => {
-        amount += item.amount;
-        total += item.price;
+        if (item.amount) {
+          amount += item.amount;
+          total += item.price * item.amount;
+        }
       });
       state.amount = amount;
       state.total = Number(total.toFixed(2));
