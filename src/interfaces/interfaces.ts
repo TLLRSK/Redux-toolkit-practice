@@ -21,6 +21,6 @@ export interface cartState {
     cartItems: Product[];
     amount: number;
     total: number;
-    isLoading: boolean;
+    isShowing: boolean;
     error?: string;
 }
