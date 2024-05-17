@@ -2,6 +2,8 @@ export interface shopState {
     shopList: Product[],
     amount: number,
     isLoading: boolean,
+    selectedProduct?: Product,
+    showingProduct: boolean,
 }
 
 export interface Product {

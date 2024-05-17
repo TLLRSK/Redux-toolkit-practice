@@ -1,12 +1,11 @@
-import { Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import { useEffect } from 'react';
 import { useDispatch } from '../node_modules/react-redux/dist/react-redux';
 import { getProducts } from './features/shop/shopSlice';
-import Home from './Views/Home';
-import Cart from './Views/Cart';
+import Cart from './components/Cart';
 import { AppDispatch } from './store';
 import './index.css';
+import Shop from './Views/Shop';
 
 function App() {
   const dispatch: AppDispatch = useDispatch();
@@ -19,7 +18,7 @@ function App() {
     <>
       <Cart/>
       <Navbar/>
-      <Home/>
+      <Shop/>
     </>
   )
 }

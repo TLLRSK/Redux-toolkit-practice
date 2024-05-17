@@ -7,6 +7,8 @@ const initialState: shopState= {
     shopList: [],
     amount: 0,
     isLoading: true,
+    selectedProduct: undefined,
+    showingProduct: false,
 }
 export const getProducts = createAsyncThunk<Product[]>(
     'shop/getProducts',
@@ -30,7 +32,16 @@ export const getProducts = createAsyncThunk<Product[]>(
 const shopSlice: any = createSlice({
     name: 'shop',
     initialState,
-    reducers: {},
+    reducers: {
+        showProduct: (state, action: PayloadAction<Product>) => {
+            state.selectedProduct = action.payload;
+            state.showingProduct = true;
+        },
+        closeProduct: (state) => {
+            state.showingProduct = false;
+            state.selectedProduct = undefined;
+        }
+    },
     extraReducers: (builder: any) => {
         builder
             .addCase(getProducts.pending, (state: any) => {
@@ -46,5 +57,7 @@ const shopSlice: any = createSlice({
             })
     }
 })
+
+export const { showProduct, closeProduct } = shopSlice.actions;
 
 export default shopSlice.reducer;
