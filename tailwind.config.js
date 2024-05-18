@@ -1,4 +1,7 @@
 /** @type {import('tailwindcss').Config} */
+
+import plugin from 'tailwindcss/plugin';
+
 export default {
   content: [
     "./index.html",
@@ -14,6 +17,7 @@ export default {
         primary: '#FFFFFF',
         secondary: '#000000',
         gray: '#F2F2F2',
+        gray100: '#6C6C6C',
         alert: '#FB0000',
       },
       spacing: {
@@ -28,6 +32,9 @@ export default {
         8: '7.2rem',
         9: '8rem',
         10: '9.2rem',
+        '1/4': '25%',
+        '2/4': '50%',
+        '3/4': '75%',
         '4/4': '100%',
       },
       fontSize: {
@@ -38,6 +45,9 @@ export default {
         'xl': '2.4rem',
         '2xl': '3.2rem',
         '3xl': '3.6rem',
+        'clamp-xs': 'clamp(.8rem, 3vw, 1rem)',
+        'clamp-s': 'clamp(1rem, 3vw, 1.2rem)',
+        'clamp-m': 'clamp(1.2rem, 3vw, 1.6rem)',
       },
       width: {
         '1/4': '25%',
@@ -50,5 +60,30 @@ export default {
       }
     },
   },
-  plugins: [],
+  plugins: [
+    plugin(function({ addUtilities, theme }) {
+      const hoverUtilities = {
+        '.opacity-80': {
+          opacity: '.8',
+        },
+        '.opacity-100': {
+          opacity: '1',
+        },
+        '.amount-btn-idle': {
+          borderColor: theme('colors.gray100'),
+        },
+        '.amount-btn-hover': {
+          borderColor: theme('colors.secondary'),
+        },
+        '.buy-btn-idle': {
+          backgroundColor: theme('colors.gray100'),
+        },
+        '.buy-btn-hover': {
+          backgroundColor: theme('colors.secondary'),
+        },
+      };
+
+      addUtilities(hoverUtilities, ['hover']);
+    })
+  ],
 };

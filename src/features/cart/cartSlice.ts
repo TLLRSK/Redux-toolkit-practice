@@ -67,11 +67,9 @@ const cartSlice = createSlice({
       state.total = Number(total.toFixed(2));
     },
     showCart: (state) => {
-      console.log("showing cart")
       state.isShowing = true;
     },
     closeCart: (state) => {
-      console.log("open cart")
       state.isShowing = false;
     }
   },

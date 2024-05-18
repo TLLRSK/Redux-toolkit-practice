@@ -26,9 +26,19 @@
           transform: translateY(-4px);
         }
       }
-      
       .bounce-once {
         animation: bounce-once 1s;
-      }
+    } 
+    [class*="opacity"] {
+      transition: opacity 0.2s ease-in-out;
+    }
+    /* Button */
+    [class*="amount-btn"] {
+      transition: border-color 0.2s ease-in-out;
+    }
+    [class*="addtocart-btn"],
+    [class*="buy-btn"] {
+      transition: background-color 0.2s ease-in-out;
+    }
 }
 
